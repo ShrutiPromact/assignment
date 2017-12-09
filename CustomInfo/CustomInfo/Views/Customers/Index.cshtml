@@ -1,0 +1,86 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<CustomInfo.Models.Customer>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2>Customers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().City)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+@*@section Scripts
+{
+
+    <script type="text/javascript">
+
+        var assetListVM;
+        $(function () {
+            assetListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#assets-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Get","Asset")"
+                        },
+                        "columns": [
+                            { "CustomerName": "City": true },
+                            //{ "title": "Manufacturer", "data": "Manufacturer", "searchable": true },
+                            //{ "title": "Model", "data": "ModelNumber", "searchable": true },
+                            //{ "title": "Building", "data": "Building", "searchable": true },
+                            //{ "title": "Room No", "data": "RoomNo" },
+                            //{ "title": "Quantity", "data": "Quantity" }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                }
+            }
+
+            // initialize the datatables
+            assetListVM.init();
+
+        });
+
+    </script>
+}*@
+  
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page}))
