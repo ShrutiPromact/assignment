@@ -1,0 +1,98 @@
+﻿ 
+@{
+    ViewBag.Title = "Home Page";
+}
+@model Paging.Models.Customer
+
+<html>
+<head>
+    <title>ASP.NET MVC - Pagination Example</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>ASP.NET MVC - Pagination Example</h1>
+
+            <!-- items being paged -->
+            <ul>
+                @foreach (var item in Model.Items)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+
+            <!-- pager -->
+            @if (Model.Pager.EndPage > 1)
+            {
+                <ul class="pagination">
+                    @if (Model.Pager.CurrentPage > 1)
+                    {
+                        <li>
+                            <a href="~/Home/Index">First</a>
+                        </li>
+                            <li>
+                                <a href="~/Home/Index?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                    }
+
+                    @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                    {
+                        <li class="@(page == Model.Pager.CurrentPage ? "active" : "")">
+                            <a href="~/Home/Index?page=@page">@page</a>
+                        </li>
+                    }
+
+                    @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                    {
+                        <li>
+                            <a href="~/Home/Index?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+                        </li>
+                            <li>
+                                <a href="~/Home/Index?page=@(Model.Pager.TotalPages)">Last</a>
+                            </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="credits text-center">
+        <p>
+            <a href="http://jasonwatmore.com/post/2015/10/30/ASPNET-MVC-Pagination-Example-with-Logic-like-Google.aspx">ASP.NET MVC - Pagination Example with Logic like Google</a>
+        </p>
+        <p>
+            <a href="http://jasonwatmore.com">JasonWatmore.com</a>
+        </p>
+    </div>
+</body>
+</html>
+
+
+@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>*@
